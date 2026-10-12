@@ -1,0 +1,568 @@
+ID,MA_DVI,TEN_DVI,MA_CHA
+1,01,BHXH Hà Nội,00
+101,0101,BHXH khu vực 1 - Hà Nội,01
+102,0102,BHXH khu vực 2 - Hà Nội,01
+103,0103,BHXH khu vực 3 - Hà Nội,01
+104,0104,BHXH khu vực 4 - Hà Nội,01
+105,0105,BHXH khu vực 5 - Hà Nội,01
+106,0106,BHXH khu vực 6 - Hà Nội,01
+107,0107,BHXH khu vực 7 - Hà Nội,01
+2,02,BHXH Hải Phòng,00
+108,0201,BHXH khu vực 1 - Hải Phòng,02
+109,0202,BHXH khu vực 2 - Hải Phòng,02
+110,0203,BHXH khu vực 3 - Hải Phòng,02
+111,0204,BHXH khu vực 4 - Hải Phòng,02
+112,0205,BHXH khu vực 5 - Hải Phòng,02
+113,0206,BHXH khu vực 6 - Hải Phòng,02
+114,0207,BHXH khu vực 7 - Hải Phòng,02
+115,0208,BHXH khu vực 8 - Hải Phòng,02
+3,03,BHXH Quảng Ninh,00
+116,0301,BHXH khu vực 1 - Quảng Ninh,03
+117,0302,BHXH khu vực 2 - Quảng Ninh,03
+118,0303,BHXH khu vực 3 - Quảng Ninh,03
+119,0304,BHXH khu vực 4 - Quảng Ninh,03
+120,0305,BHXH khu vực 5 - Quảng Ninh,03
+121,0306,BHXH khu vực 6 - Quảng Ninh,03
+122,0307,BHXH khu vực 7 - Quảng Ninh,03
+123,0308,BHXH khu vực 8 - Quảng Ninh,03
+124,0309,BHXH khu vực 9 - Quảng Ninh,03
+4,04,BHXH Hải Dương,00
+125,0401,BHXH khu vực 1 - Hải Dương,04
+126,0402,BHXH khu vực 2 - Hải Dương,04
+127,0403,BHXH khu vực 3 - Hải Dương,04
+128,0404,BHXH khu vực 4 - Hải Dương,04
+129,0405,BHXH khu vực 5 - Hải Dương,04
+130,0406,BHXH khu vực 6 - Hải Dương,04
+131,0407,BHXH khu vực 7 - Hải Dương,04
+132,0408,BHXH khu vực 8 - Hải Dương,04
+133,0409,BHXH khu vực 9 - Hải Dương,04
+134,0410,BHXH khu vực 10 - Hải Dương,04
+5,05,BHXH Hưng Yên,00
+135,0501,BHXH khu vực 1 - Hưng Yên,05
+136,0502,BHXH khu vực 2 - Hưng Yên,05
+137,0503,BHXH khu vực 3 - Hưng Yên,05
+138,0504,BHXH khu vực 4 - Hưng Yên,05
+139,0505,BHXH khu vực 5 - Hưng Yên,05
+140,0506,BHXH khu vực 6 - Hưng Yên,05
+6,06,BHXH Thái Bình,00
+141,0601,BHXH khu vực 1 - Thái Bình,06
+142,0602,BHXH khu vực 2 - Thái Bình,06
+143,0603,BHXH khu vực 3 - Thái Bình,06
+144,0604,BHXH khu vực 4 - Thái Bình,06
+145,0605,BHXH khu vực 5 - Thái Bình,06
+146,0606,BHXH khu vực 6 - Thái Bình,06
+147,0607,BHXH khu vực 7 - Thái Bình,06
+7,07,BHXH Hà Nam,00
+148,0701,BHXH khu vực 1 - Hà Nam,07
+149,0702,BHXH khu vực 2 - Hà Nam,07
+150,0703,BHXH khu vực 3 - Hà Nam,07
+151,0704,BHXH khu vực 4 - Hà Nam,07
+152,0705,BHXH khu vực 5 - Hà Nam,07
+153,0706,BHXH khu vực 6 - Hà Nam,07
+154,0707,BHXH khu vực 7 - Hà Nam,07
+155,0708,BHXH khu vực 8 - Hà Nam,07
+8,08,BHXH Nam Định,00
+156,0801,BHXH khu vực 1 - Nam Định,08
+157,0802,BHXH khu vực 2 - Nam Định,08
+158,0803,BHXH khu vực 3 - Nam Định,08
+159,0804,BHXH khu vực 4 - Nam Định,08
+160,0805,BHXH khu vực 5 - Nam Định,08
+161,0806,BHXH khu vực 6 - Nam Định,08
+162,0807,BHXH khu vực 7 - Nam Định,08
+163,0808,BHXH khu vực 8 - Nam Định,08
+164,0809,BHXH khu vực 9 - Nam Định,08
+9,09,BHXH Ninh Bình,00
+165,0901,BHXH khu vực 1 - Ninh Bình,09
+166,0902,BHXH khu vực 2 - Ninh Bình,09
+167,0903,BHXH khu vực 3 - Ninh Bình,09
+168,0904,BHXH khu vực 4 - Ninh Bình,09
+169,0905,BHXH khu vực 5 - Ninh Bình,09
+170,0906,BHXH khu vực 6 - Ninh Bình,09
+171,0907,BHXH khu vực 7 - Ninh Bình,09
+172,0908,BHXH khu vực 8 - Ninh Bình,09
+173,0909,BHXH khu vực 9 - Ninh Bình,09
+174,0910,BHXH khu vực 10 - Ninh Bình,09
+10,10,BHXH Vĩnh Phúc,00
+175,1001,BHXH khu vực 1 - Vĩnh Phúc,10
+176,1002,BHXH khu vực 2 - Vĩnh Phúc,10
+177,1003,BHXH khu vực 3 - Vĩnh Phúc,10
+178,1004,BHXH khu vực 4 - Vĩnh Phúc,10
+179,1005,BHXH khu vực 5 - Vĩnh Phúc,10
+180,1006,BHXH khu vực 6 - Vĩnh Phúc,10
+11,11,BHXH Bắc Ninh,00
+181,1101,BHXH khu vực 1 - Bắc Ninh,11
+182,1102,BHXH khu vực 2 - Bắc Ninh,11
+183,1103,BHXH khu vực 3 - Bắc Ninh,11
+184,1104,BHXH khu vực 4 - Bắc Ninh,11
+185,1105,BHXH khu vực 5 - Bắc Ninh,11
+186,1106,BHXH khu vực 6 - Bắc Ninh,11
+187,1107,BHXH khu vực 7 - Bắc Ninh,11
+12,12,BHXH Bắc Giang,00
+188,1201,BHXH khu vực 1 - Bắc Giang,12
+189,1202,BHXH khu vực 2 - Bắc Giang,12
+190,1203,BHXH khu vực 3 - Bắc Giang,12
+191,1204,BHXH khu vực 4 - Bắc Giang,12
+192,1205,BHXH khu vực 5 - Bắc Giang,12
+193,1206,BHXH khu vực 6 - Bắc Giang,12
+194,1207,BHXH khu vực 7 - Bắc Giang,12
+195,1208,BHXH khu vực 8 - Bắc Giang,12
+13,13,BHXH Phú Thọ,00
+196,1301,BHXH khu vực 1 - Phú Thọ,13
+197,1302,BHXH khu vực 2 - Phú Thọ,13
+198,1303,BHXH khu vực 3 - Phú Thọ,13
+199,1304,BHXH khu vực 4 - Phú Thọ,13
+200,1305,BHXH khu vực 5 - Phú Thọ,13
+201,1306,BHXH khu vực 6 - Phú Thọ,13
+202,1307,BHXH khu vực 7 - Phú Thọ,13
+203,1308,BHXH khu vực 8 - Phú Thọ,13
+204,1309,BHXH khu vực 9 - Phú Thọ,13
+14,14,BHXH Thái Nguyên,00
+205,1401,BHXH khu vực 1 - Thái Nguyên,14
+206,1402,BHXH khu vực 2 - Thái Nguyên,14
+207,1403,BHXH khu vực 3 - Thái Nguyên,14
+208,1404,BHXH khu vực 4 - Thái Nguyên,14
+209,1405,BHXH khu vực 5 - Thái Nguyên,14
+210,1406,BHXH khu vực 6 - Thái Nguyên,14
+211,1407,BHXH khu vực 7 - Thái Nguyên,14
+212,1408,BHXH khu vực 8 - Thái Nguyên,14
+213,1409,BHXH khu vực 9 - Thái Nguyên,14
+214,1410,BHXH khu vực 10 - Thái Nguyên,14
+15,15,BHXH Bắc Kạn,00
+215,1501,BHXH khu vực 1 - Bắc Kạn,15
+216,1502,BHXH khu vực 2 - Bắc Kạn,15
+217,1503,BHXH khu vực 3 - Bắc Kạn,15
+218,1504,BHXH khu vực 4 - Bắc Kạn,15
+219,1505,BHXH khu vực 5 - Bắc Kạn,15
+220,1506,BHXH khu vực 6 - Bắc Kạn,15
+16,16,BHXH Cao Bằng,00
+221,1601,BHXH khu vực 1 - Cao Bằng,16
+222,1602,BHXH khu vực 2 - Cao Bằng,16
+223,1603,BHXH khu vực 3 - Cao Bằng,16
+224,1604,BHXH khu vực 4 - Cao Bằng,16
+225,1605,BHXH khu vực 5 - Cao Bằng,16
+226,1606,BHXH khu vực 6 - Cao Bằng,16
+227,1607,BHXH khu vực 7 - Cao Bằng,16
+17,17,BHXH Lạng Sơn,00
+228,1701,BHXH khu vực 1 - Lạng Sơn,17
+229,1702,BHXH khu vực 2 - Lạng Sơn,17
+230,1703,BHXH khu vực 3 - Lạng Sơn,17
+231,1704,BHXH khu vực 4 - Lạng Sơn,17
+232,1705,BHXH khu vực 5 - Lạng Sơn,17
+233,1706,BHXH khu vực 6 - Lạng Sơn,17
+234,1707,BHXH khu vực 7 - Lạng Sơn,17
+235,1708,BHXH khu vực 8 - Lạng Sơn,17
+18,18,BHXH Tuyên Quang,00
+236,1801,BHXH khu vực 1 - Tuyên Quang,18
+237,1802,BHXH khu vực 2 - Tuyên Quang,18
+238,1803,BHXH khu vực 3 - Tuyên Quang,18
+239,1804,BHXH khu vực 4 - Tuyên Quang,18
+240,1805,BHXH khu vực 5 - Tuyên Quang,18
+241,1806,BHXH khu vực 6 - Tuyên Quang,18
+242,1807,BHXH khu vực 7 - Tuyên Quang,18
+243,1808,BHXH khu vực 8 - Tuyên Quang,18
+244,1809,BHXH khu vực 9 - Tuyên Quang,18
+19,19,BHXH Hà Giang,00
+245,1901,BHXH khu vực 1 - Hà Giang,19
+246,1902,BHXH khu vực 2 - Hà Giang,19
+247,1903,BHXH khu vực 3 - Hà Giang,19
+248,1904,BHXH khu vực 4 - Hà Giang,19
+249,1905,BHXH khu vực 5 - Hà Giang,19
+250,1906,BHXH khu vực 6 - Hà Giang,19
+251,1907,BHXH khu vực 7 - Hà Giang,19
+252,1908,BHXH khu vực 8 - Hà Giang,19
+253,1909,BHXH khu vực 9 - Hà Giang,19
+254,1910,BHXH khu vực 10 - Hà Giang,19
+20,20,BHXH Lào Cai,00
+255,2001,BHXH khu vực 1 - Lào Cai,20
+256,2002,BHXH khu vực 2 - Lào Cai,20
+257,2003,BHXH khu vực 3 - Lào Cai,20
+258,2004,BHXH khu vực 4 - Lào Cai,20
+259,2005,BHXH khu vực 5 - Lào Cai,20
+260,2006,BHXH khu vực 6 - Lào Cai,20
+21,21,BHXH Yên Bái,00
+261,2101,BHXH khu vực 1 - Yên Bái,21
+262,2102,BHXH khu vực 2 - Yên Bái,21
+263,2103,BHXH khu vực 3 - Yên Bái,21
+264,2104,BHXH khu vực 4 - Yên Bái,21
+265,2105,BHXH khu vực 5 - Yên Bái,21
+266,2106,BHXH khu vực 6 - Yên Bái,21
+267,2107,BHXH khu vực 7 - Yên Bái,21
+22,22,BHXH Lai Châu,00
+268,2201,BHXH khu vực 1 - Lai Châu,22
+269,2202,BHXH khu vực 2 - Lai Châu,22
+270,2203,BHXH khu vực 3 - Lai Châu,22
+271,2204,BHXH khu vực 4 - Lai Châu,22
+272,2205,BHXH khu vực 5 - Lai Châu,22
+273,2206,BHXH khu vực 6 - Lai Châu,22
+274,2207,BHXH khu vực 7 - Lai Châu,22
+275,2208,BHXH khu vực 8 - Lai Châu,22
+23,23,BHXH Điện Biên,00
+276,2301,BHXH khu vực 1 - Điện Biên,23
+277,2302,BHXH khu vực 2 - Điện Biên,23
+278,2303,BHXH khu vực 3 - Điện Biên,23
+279,2304,BHXH khu vực 4 - Điện Biên,23
+280,2305,BHXH khu vực 5 - Điện Biên,23
+281,2306,BHXH khu vực 6 - Điện Biên,23
+282,2307,BHXH khu vực 7 - Điện Biên,23
+283,2308,BHXH khu vực 8 - Điện Biên,23
+284,2309,BHXH khu vực 9 - Điện Biên,23
+24,24,BHXH Sơn La,00
+285,2401,BHXH khu vực 1 - Sơn La,24
+286,2402,BHXH khu vực 2 - Sơn La,24
+287,2403,BHXH khu vực 3 - Sơn La,24
+288,2404,BHXH khu vực 4 - Sơn La,24
+289,2405,BHXH khu vực 5 - Sơn La,24
+290,2406,BHXH khu vực 6 - Sơn La,24
+291,2407,BHXH khu vực 7 - Sơn La,24
+292,2408,BHXH khu vực 8 - Sơn La,24
+293,2409,BHXH khu vực 9 - Sơn La,24
+294,2410,BHXH khu vực 10 - Sơn La,24
+25,25,BHXH Hòa Bình,00
+295,2501,BHXH khu vực 1 - Hòa Bình,25
+296,2502,BHXH khu vực 2 - Hòa Bình,25
+297,2503,BHXH khu vực 3 - Hòa Bình,25
+298,2504,BHXH khu vực 4 - Hòa Bình,25
+299,2505,BHXH khu vực 5 - Hòa Bình,25
+300,2506,BHXH khu vực 6 - Hòa Bình,25
+26,26,BHXH Thanh Hóa,00
+301,2601,BHXH khu vực 1 - Thanh Hóa,26
+302,2602,BHXH khu vực 2 - Thanh Hóa,26
+303,2603,BHXH khu vực 3 - Thanh Hóa,26
+304,2604,BHXH khu vực 4 - Thanh Hóa,26
+305,2605,BHXH khu vực 5 - Thanh Hóa,26
+306,2606,BHXH khu vực 6 - Thanh Hóa,26
+307,2607,BHXH khu vực 7 - Thanh Hóa,26
+27,27,BHXH Nghệ An,00
+308,2701,BHXH khu vực 1 - Nghệ An,27
+309,2702,BHXH khu vực 2 - Nghệ An,27
+310,2703,BHXH khu vực 3 - Nghệ An,27
+311,2704,BHXH khu vực 4 - Nghệ An,27
+312,2705,BHXH khu vực 5 - Nghệ An,27
+313,2706,BHXH khu vực 6 - Nghệ An,27
+314,2707,BHXH khu vực 7 - Nghệ An,27
+315,2708,BHXH khu vực 8 - Nghệ An,27
+28,28,BHXH Hà Tĩnh,00
+316,2801,BHXH khu vực 1 - Hà Tĩnh,28
+317,2802,BHXH khu vực 2 - Hà Tĩnh,28
+318,2803,BHXH khu vực 3 - Hà Tĩnh,28
+319,2804,BHXH khu vực 4 - Hà Tĩnh,28
+320,2805,BHXH khu vực 5 - Hà Tĩnh,28
+321,2806,BHXH khu vực 6 - Hà Tĩnh,28
+322,2807,BHXH khu vực 7 - Hà Tĩnh,28
+323,2808,BHXH khu vực 8 - Hà Tĩnh,28
+324,2809,BHXH khu vực 9 - Hà Tĩnh,28
+29,29,BHXH Quảng Bình,00
+325,2901,BHXH khu vực 1 - Quảng Bình,29
+326,2902,BHXH khu vực 2 - Quảng Bình,29
+327,2903,BHXH khu vực 3 - Quảng Bình,29
+328,2904,BHXH khu vực 4 - Quảng Bình,29
+329,2905,BHXH khu vực 5 - Quảng Bình,29
+330,2906,BHXH khu vực 6 - Quảng Bình,29
+331,2907,BHXH khu vực 7 - Quảng Bình,29
+332,2908,BHXH khu vực 8 - Quảng Bình,29
+333,2909,BHXH khu vực 9 - Quảng Bình,29
+334,2910,BHXH khu vực 10 - Quảng Bình,29
+30,30,BHXH Quảng Trị,00
+335,3001,BHXH khu vực 1 - Quảng Trị,30
+336,3002,BHXH khu vực 2 - Quảng Trị,30
+337,3003,BHXH khu vực 3 - Quảng Trị,30
+338,3004,BHXH khu vực 4 - Quảng Trị,30
+339,3005,BHXH khu vực 5 - Quảng Trị,30
+340,3006,BHXH khu vực 6 - Quảng Trị,30
+31,31,BHXH Thừa Thiên Huế,00
+341,3101,BHXH khu vực 1 - Thừa Thiên Huế,31
+342,3102,BHXH khu vực 2 - Thừa Thiên Huế,31
+343,3103,BHXH khu vực 3 - Thừa Thiên Huế,31
+344,3104,BHXH khu vực 4 - Thừa Thiên Huế,31
+345,3105,BHXH khu vực 5 - Thừa Thiên Huế,31
+346,3106,BHXH khu vực 6 - Thừa Thiên Huế,31
+347,3107,BHXH khu vực 7 - Thừa Thiên Huế,31
+32,32,BHXH Đà Nẵng,00
+348,3201,BHXH khu vực 1 - Đà Nẵng,32
+349,3202,BHXH khu vực 2 - Đà Nẵng,32
+350,3203,BHXH khu vực 3 - Đà Nẵng,32
+351,3204,BHXH khu vực 4 - Đà Nẵng,32
+352,3205,BHXH khu vực 5 - Đà Nẵng,32
+353,3206,BHXH khu vực 6 - Đà Nẵng,32
+354,3207,BHXH khu vực 7 - Đà Nẵng,32
+355,3208,BHXH khu vực 8 - Đà Nẵng,32
+33,33,BHXH Quảng Nam,00
+356,3301,BHXH khu vực 1 - Quảng Nam,33
+357,3302,BHXH khu vực 2 - Quảng Nam,33
+358,3303,BHXH khu vực 3 - Quảng Nam,33
+359,3304,BHXH khu vực 4 - Quảng Nam,33
+360,3305,BHXH khu vực 5 - Quảng Nam,33
+361,3306,BHXH khu vực 6 - Quảng Nam,33
+362,3307,BHXH khu vực 7 - Quảng Nam,33
+363,3308,BHXH khu vực 8 - Quảng Nam,33
+364,3309,BHXH khu vực 9 - Quảng Nam,33
+34,34,BHXH Quảng Ngãi,00
+365,3401,BHXH khu vực 1 - Quảng Ngãi,34
+366,3402,BHXH khu vực 2 - Quảng Ngãi,34
+367,3403,BHXH khu vực 3 - Quảng Ngãi,34
+368,3404,BHXH khu vực 4 - Quảng Ngãi,34
+369,3405,BHXH khu vực 5 - Quảng Ngãi,34
+370,3406,BHXH khu vực 6 - Quảng Ngãi,34
+371,3407,BHXH khu vực 7 - Quảng Ngãi,34
+372,3408,BHXH khu vực 8 - Quảng Ngãi,34
+373,3409,BHXH khu vực 9 - Quảng Ngãi,34
+374,3410,BHXH khu vực 10 - Quảng Ngãi,34
+35,35,BHXH Bình Định,00
+375,3501,BHXH khu vực 1 - Bình Định,35
+376,3502,BHXH khu vực 2 - Bình Định,35
+377,3503,BHXH khu vực 3 - Bình Định,35
+378,3504,BHXH khu vực 4 - Bình Định,35
+379,3505,BHXH khu vực 5 - Bình Định,35
+380,3506,BHXH khu vực 6 - Bình Định,35
+36,36,BHXH Phú Yên,00
+381,3601,BHXH khu vực 1 - Phú Yên,36
+382,3602,BHXH khu vực 2 - Phú Yên,36
+383,3603,BHXH khu vực 3 - Phú Yên,36
+384,3604,BHXH khu vực 4 - Phú Yên,36
+385,3605,BHXH khu vực 5 - Phú Yên,36
+386,3606,BHXH khu vực 6 - Phú Yên,36
+387,3607,BHXH khu vực 7 - Phú Yên,36
+37,37,BHXH Khánh Hòa,00
+388,3701,BHXH khu vực 1 - Khánh Hòa,37
+389,3702,BHXH khu vực 2 - Khánh Hòa,37
+390,3703,BHXH khu vực 3 - Khánh Hòa,37
+391,3704,BHXH khu vực 4 - Khánh Hòa,37
+392,3705,BHXH khu vực 5 - Khánh Hòa,37
+393,3706,BHXH khu vực 6 - Khánh Hòa,37
+394,3707,BHXH khu vực 7 - Khánh Hòa,37
+395,3708,BHXH khu vực 8 - Khánh Hòa,37
+38,38,BHXH Ninh Thuận,00
+396,3801,BHXH khu vực 1 - Ninh Thuận,38
+397,3802,BHXH khu vực 2 - Ninh Thuận,38
+398,3803,BHXH khu vực 3 - Ninh Thuận,38
+399,3804,BHXH khu vực 4 - Ninh Thuận,38
+400,3805,BHXH khu vực 5 - Ninh Thuận,38
+401,3806,BHXH khu vực 6 - Ninh Thuận,38
+402,3807,BHXH khu vực 7 - Ninh Thuận,38
+403,3808,BHXH khu vực 8 - Ninh Thuận,38
+404,3809,BHXH khu vực 9 - Ninh Thuận,38
+39,39,BHXH Bình Thuận,00
+405,3901,BHXH khu vực 1 - Bình Thuận,39
+406,3902,BHXH khu vực 2 - Bình Thuận,39
+407,3903,BHXH khu vực 3 - Bình Thuận,39
+408,3904,BHXH khu vực 4 - Bình Thuận,39
+409,3905,BHXH khu vực 5 - Bình Thuận,39
+410,3906,BHXH khu vực 6 - Bình Thuận,39
+411,3907,BHXH khu vực 7 - Bình Thuận,39
+412,3908,BHXH khu vực 8 - Bình Thuận,39
+413,3909,BHXH khu vực 9 - Bình Thuận,39
+414,3910,BHXH khu vực 10 - Bình Thuận,39
+40,40,BHXH Kon Tum,00
+415,4001,BHXH khu vực 1 - Kon Tum,40
+416,4002,BHXH khu vực 2 - Kon Tum,40
+417,4003,BHXH khu vực 3 - Kon Tum,40
+418,4004,BHXH khu vực 4 - Kon Tum,40
+419,4005,BHXH khu vực 5 - Kon Tum,40
+420,4006,BHXH khu vực 6 - Kon Tum,40
+41,41,BHXH Gia Lai,00
+421,4101,BHXH khu vực 1 - Gia Lai,41
+422,4102,BHXH khu vực 2 - Gia Lai,41
+423,4103,BHXH khu vực 3 - Gia Lai,41
+424,4104,BHXH khu vực 4 - Gia Lai,41
+425,4105,BHXH khu vực 5 - Gia Lai,41
+426,4106,BHXH khu vực 6 - Gia Lai,41
+427,4107,BHXH khu vực 7 - Gia Lai,41
+42,42,BHXH Đắk Lắk,00
+428,4201,BHXH khu vực 1 - Đắk Lắk,42
+429,4202,BHXH khu vực 2 - Đắk Lắk,42
+430,4203,BHXH khu vực 3 - Đắk Lắk,42
+431,4204,BHXH khu vực 4 - Đắk Lắk,42
+432,4205,BHXH khu vực 5 - Đắk Lắk,42
+433,4206,BHXH khu vực 6 - Đắk Lắk,42
+434,4207,BHXH khu vực 7 - Đắk Lắk,42
+435,4208,BHXH khu vực 8 - Đắk Lắk,42
+43,43,BHXH Đắk Nông,00
+436,4301,BHXH khu vực 1 - Đắk Nông,43
+437,4302,BHXH khu vực 2 - Đắk Nông,43
+438,4303,BHXH khu vực 3 - Đắk Nông,43
+439,4304,BHXH khu vực 4 - Đắk Nông,43
+440,4305,BHXH khu vực 5 - Đắk Nông,43
+441,4306,BHXH khu vực 6 - Đắk Nông,43
+442,4307,BHXH khu vực 7 - Đắk Nông,43
+443,4308,BHXH khu vực 8 - Đắk Nông,43
+444,4309,BHXH khu vực 9 - Đắk Nông,43
+44,44,BHXH Lâm Đồng,00
+445,4401,BHXH khu vực 1 - Lâm Đồng,44
+446,4402,BHXH khu vực 2 - Lâm Đồng,44
+447,4403,BHXH khu vực 3 - Lâm Đồng,44
+448,4404,BHXH khu vực 4 - Lâm Đồng,44
+449,4405,BHXH khu vực 5 - Lâm Đồng,44
+450,4406,BHXH khu vực 6 - Lâm Đồng,44
+451,4407,BHXH khu vực 7 - Lâm Đồng,44
+452,4408,BHXH khu vực 8 - Lâm Đồng,44
+453,4409,BHXH khu vực 9 - Lâm Đồng,44
+454,4410,BHXH khu vực 10 - Lâm Đồng,44
+45,45,BHXH TP Hồ Chí Minh,00
+455,4501,BHXH khu vực 1 - TP Hồ Chí Minh,45
+456,4502,BHXH khu vực 2 - TP Hồ Chí Minh,45
+457,4503,BHXH khu vực 3 - TP Hồ Chí Minh,45
+458,4504,BHXH khu vực 4 - TP Hồ Chí Minh,45
+459,4505,BHXH khu vực 5 - TP Hồ Chí Minh,45
+460,4506,BHXH khu vực 6 - TP Hồ Chí Minh,45
+46,46,BHXH Bình Phước,00
+461,4601,BHXH khu vực 1 - Bình Phước,46
+462,4602,BHXH khu vực 2 - Bình Phước,46
+463,4603,BHXH khu vực 3 - Bình Phước,46
+464,4604,BHXH khu vực 4 - Bình Phước,46
+465,4605,BHXH khu vực 5 - Bình Phước,46
+466,4606,BHXH khu vực 6 - Bình Phước,46
+467,4607,BHXH khu vực 7 - Bình Phước,46
+47,47,BHXH Bình Dương,00
+468,4701,BHXH khu vực 1 - Bình Dương,47
+469,4702,BHXH khu vực 2 - Bình Dương,47
+470,4703,BHXH khu vực 3 - Bình Dương,47
+471,4704,BHXH khu vực 4 - Bình Dương,47
+472,4705,BHXH khu vực 5 - Bình Dương,47
+473,4706,BHXH khu vực 6 - Bình Dương,47
+474,4707,BHXH khu vực 7 - Bình Dương,47
+475,4708,BHXH khu vực 8 - Bình Dương,47
+48,48,BHXH Đồng Nai,00
+476,4801,BHXH khu vực 1 - Đồng Nai,48
+477,4802,BHXH khu vực 2 - Đồng Nai,48
+478,4803,BHXH khu vực 3 - Đồng Nai,48
+479,4804,BHXH khu vực 4 - Đồng Nai,48
+480,4805,BHXH khu vực 5 - Đồng Nai,48
+481,4806,BHXH khu vực 6 - Đồng Nai,48
+482,4807,BHXH khu vực 7 - Đồng Nai,48
+483,4808,BHXH khu vực 8 - Đồng Nai,48
+484,4809,BHXH khu vực 9 - Đồng Nai,48
+49,49,BHXH Tây Ninh,00
+485,4901,BHXH khu vực 1 - Tây Ninh,49
+486,4902,BHXH khu vực 2 - Tây Ninh,49
+487,4903,BHXH khu vực 3 - Tây Ninh,49
+488,4904,BHXH khu vực 4 - Tây Ninh,49
+489,4905,BHXH khu vực 5 - Tây Ninh,49
+490,4906,BHXH khu vực 6 - Tây Ninh,49
+491,4907,BHXH khu vực 7 - Tây Ninh,49
+492,4908,BHXH khu vực 8 - Tây Ninh,49
+493,4909,BHXH khu vực 9 - Tây Ninh,49
+494,4910,BHXH khu vực 10 - Tây Ninh,49
+50,50,BHXH Bà Rịa - Vũng Tàu,00
+495,5001,BHXH khu vực 1 - Bà Rịa - Vũng Tàu,50
+496,5002,BHXH khu vực 2 - Bà Rịa - Vũng Tàu,50
+497,5003,BHXH khu vực 3 - Bà Rịa - Vũng Tàu,50
+498,5004,BHXH khu vực 4 - Bà Rịa - Vũng Tàu,50
+499,5005,BHXH khu vực 5 - Bà Rịa - Vũng Tàu,50
+500,5006,BHXH khu vực 6 - Bà Rịa - Vũng Tàu,50
+51,51,BHXH Long An,00
+501,5101,BHXH khu vực 1 - Long An,51
+502,5102,BHXH khu vực 2 - Long An,51
+503,5103,BHXH khu vực 3 - Long An,51
+504,5104,BHXH khu vực 4 - Long An,51
+505,5105,BHXH khu vực 5 - Long An,51
+506,5106,BHXH khu vực 6 - Long An,51
+507,5107,BHXH khu vực 7 - Long An,51
+52,52,BHXH Tiền Giang,00
+508,5201,BHXH khu vực 1 - Tiền Giang,52
+509,5202,BHXH khu vực 2 - Tiền Giang,52
+510,5203,BHXH khu vực 3 - Tiền Giang,52
+511,5204,BHXH khu vực 4 - Tiền Giang,52
+512,5205,BHXH khu vực 5 - Tiền Giang,52
+513,5206,BHXH khu vực 6 - Tiền Giang,52
+514,5207,BHXH khu vực 7 - Tiền Giang,52
+515,5208,BHXH khu vực 8 - Tiền Giang,52
+53,53,BHXH Bến Tre,00
+516,5301,BHXH khu vực 1 - Bến Tre,53
+517,5302,BHXH khu vực 2 - Bến Tre,53
+518,5303,BHXH khu vực 3 - Bến Tre,53
+519,5304,BHXH khu vực 4 - Bến Tre,53
+520,5305,BHXH khu vực 5 - Bến Tre,53
+521,5306,BHXH khu vực 6 - Bến Tre,53
+522,5307,BHXH khu vực 7 - Bến Tre,53
+523,5308,BHXH khu vực 8 - Bến Tre,53
+524,5309,BHXH khu vực 9 - Bến Tre,53
+54,54,BHXH Trà Vinh,00
+525,5401,BHXH khu vực 1 - Trà Vinh,54
+526,5402,BHXH khu vực 2 - Trà Vinh,54
+527,5403,BHXH khu vực 3 - Trà Vinh,54
+528,5404,BHXH khu vực 4 - Trà Vinh,54
+529,5405,BHXH khu vực 5 - Trà Vinh,54
+530,5406,BHXH khu vực 6 - Trà Vinh,54
+531,5407,BHXH khu vực 7 - Trà Vinh,54
+532,5408,BHXH khu vực 8 - Trà Vinh,54
+533,5409,BHXH khu vực 9 - Trà Vinh,54
+534,5410,BHXH khu vực 10 - Trà Vinh,54
+55,55,BHXH Vĩnh Long,00
+535,5501,BHXH khu vực 1 - Vĩnh Long,55
+536,5502,BHXH khu vực 2 - Vĩnh Long,55
+537,5503,BHXH khu vực 3 - Vĩnh Long,55
+538,5504,BHXH khu vực 4 - Vĩnh Long,55
+539,5505,BHXH khu vực 5 - Vĩnh Long,55
+540,5506,BHXH khu vực 6 - Vĩnh Long,55
+56,56,BHXH Đồng Tháp,00
+541,5601,BHXH khu vực 1 - Đồng Tháp,56
+542,5602,BHXH khu vực 2 - Đồng Tháp,56
+543,5603,BHXH khu vực 3 - Đồng Tháp,56
+544,5604,BHXH khu vực 4 - Đồng Tháp,56
+545,5605,BHXH khu vực 5 - Đồng Tháp,56
+546,5606,BHXH khu vực 6 - Đồng Tháp,56
+547,5607,BHXH khu vực 7 - Đồng Tháp,56
+57,57,BHXH An Giang,00
+548,5701,BHXH khu vực 1 - An Giang,57
+549,5702,BHXH khu vực 2 - An Giang,57
+550,5703,BHXH khu vực 3 - An Giang,57
+551,5704,BHXH khu vực 4 - An Giang,57
+552,5705,BHXH khu vực 5 - An Giang,57
+553,5706,BHXH khu vực 6 - An Giang,57
+554,5707,BHXH khu vực 7 - An Giang,57
+555,5708,BHXH khu vực 8 - An Giang,57
+58,58,BHXH Kiên Giang,00
+556,5801,BHXH khu vực 1 - Kiên Giang,58
+557,5802,BHXH khu vực 2 - Kiên Giang,58
+558,5803,BHXH khu vực 3 - Kiên Giang,58
+559,5804,BHXH khu vực 4 - Kiên Giang,58
+560,5805,BHXH khu vực 5 - Kiên Giang,58
+561,5806,BHXH khu vực 6 - Kiên Giang,58
+562,5807,BHXH khu vực 7 - Kiên Giang,58
+563,5808,BHXH khu vực 8 - Kiên Giang,58
+564,5809,BHXH khu vực 9 - Kiên Giang,58
+59,59,BHXH Cần Thơ,00
+565,5901,BHXH khu vực 1 - Cần Thơ,59
+566,5902,BHXH khu vực 2 - Cần Thơ,59
+567,5903,BHXH khu vực 3 - Cần Thơ,59
+568,5904,BHXH khu vực 4 - Cần Thơ,59
+569,5905,BHXH khu vực 5 - Cần Thơ,59
+570,5906,BHXH khu vực 6 - Cần Thơ,59
+571,5907,BHXH khu vực 7 - Cần Thơ,59
+572,5908,BHXH khu vực 8 - Cần Thơ,59
+573,5909,BHXH khu vực 9 - Cần Thơ,59
+574,5910,BHXH khu vực 10 - Cần Thơ,59
+60,60,BHXH Hậu Giang,00
+575,6001,BHXH khu vực 1 - Hậu Giang,60
+576,6002,BHXH khu vực 2 - Hậu Giang,60
+577,6003,BHXH khu vực 3 - Hậu Giang,60
+578,6004,BHXH khu vực 4 - Hậu Giang,60
+579,6005,BHXH khu vực 5 - Hậu Giang,60
+580,6006,BHXH khu vực 6 - Hậu Giang,60
+61,61,BHXH Sóc Trăng,00
+581,6101,BHXH khu vực 1 - Sóc Trăng,61
+582,6102,BHXH khu vực 2 - Sóc Trăng,61
+583,6103,BHXH khu vực 3 - Sóc Trăng,61
+584,6104,BHXH khu vực 4 - Sóc Trăng,61
+585,6105,BHXH khu vực 5 - Sóc Trăng,61
+586,6106,BHXH khu vực 6 - Sóc Trăng,61
+587,6107,BHXH khu vực 7 - Sóc Trăng,61
+62,62,BHXH Bạc Liêu,00
+588,6201,BHXH khu vực 1 - Bạc Liêu,62
+589,6202,BHXH khu vực 2 - Bạc Liêu,62
+590,6203,BHXH khu vực 3 - Bạc Liêu,62
+591,6204,BHXH khu vực 4 - Bạc Liêu,62
+592,6205,BHXH khu vực 5 - Bạc Liêu,62
+593,6206,BHXH khu vực 6 - Bạc Liêu,62
+594,6207,BHXH khu vực 7 - Bạc Liêu,62
+595,6208,BHXH khu vực 8 - Bạc Liêu,62
+63,63,BHXH Cà Mau,00
+596,6301,BHXH khu vực 1 - Cà Mau,63
+597,6302,BHXH khu vực 2 - Cà Mau,63
+598,6303,BHXH khu vực 3 - Cà Mau,63
+599,6304,BHXH khu vực 4 - Cà Mau,63
+600,6305,BHXH khu vực 5 - Cà Mau,63
+601,6306,BHXH khu vực 6 - Cà Mau,63
+602,6307,BHXH khu vực 7 - Cà Mau,63
+603,6308,BHXH khu vực 8 - Cà Mau,63
+604,6309,BHXH khu vực 9 - Cà Mau,63

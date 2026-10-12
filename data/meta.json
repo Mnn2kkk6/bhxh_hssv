@@ -1,0 +1,8 @@
+{
+  "persons": 20000000,
+  "seed": 42,
+  "chunk": 250000,
+  "out": "data",
+  "format": "parquet",
+  "resume": false
+}
