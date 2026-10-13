@@ -9,7 +9,7 @@ Kết quả (trong thư mục --out, mặc định ./data):
   ST_INTHE_DTL/part_00000.parquet bảng thẻ (chia mảnh theo khoảng người)
   SCENARIO/part_00000.parquet     "đáp án" kịch bản cho từng người (dùng để kiểm chứng)
 
-Cùng --persons và --seed => dữ liệu GIỐNG HỆT nhau (hai người dùng chung một bộ).
+Cùng --persons và --seed  ( dùng chung một bộ).
 """
 import argparse, json, shutil, time
 from pathlib import Path
