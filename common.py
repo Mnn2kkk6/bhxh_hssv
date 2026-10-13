@@ -1,4 +1,4 @@
-"""Hàm dùng chung cho gen_data.py / solve.py / verify.py"""
+"""Hàm dùng chung cho các file gen_data.py / solve.py / verify.py"""
 from pathlib import Path
 import pandas as pd
 
