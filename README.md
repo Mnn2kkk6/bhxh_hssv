@@ -2,7 +2,7 @@
 
 **Yêu cầu Ý 1:** Học sinh, sinh viên tham gia BHYT từ tháng 10/2024 nhưng đến nay đã dừng tham gia và chưa tham gia lại (tách riêng danh sách học sinh và sinh viên).
 
-Bộ code làm 3 việc theo thứ tự: **sinh dữ liệu giả → giải Ý 1 → đối chiếu kết quả**.
+Làm 3 việc theo thứ tự: **sinh dữ liệu giả → giải Ý 1 → đối chiếu kết quả**.
 
 ---
 
