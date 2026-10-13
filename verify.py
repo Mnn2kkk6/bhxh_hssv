@@ -3,7 +3,7 @@
   (A) Cách tính thứ hai: quy mọi ngày về "chỉ số tháng" rồi dùng groupby/any (khác hẳn cách lọc ngày + loại trừ)
   (B) Đáp án kịch bản do gen_data.py ghi sẵn (SCENARIO) - biết trước ai thực sự "dừng"
   (C) Tự nhất quán: không trùng người, HS/SV tách riêng, tổng thống kê = tổng chi tiết
-  (D) Cho thấy "bẫy": nếu quên lọc TRANG_THAI = 1 thì kết quả lệch bao nhiêu
+  (D) Cho thấy "bẫy": nếu quên lọc TRANG_THAI = 1 thì kết quả lệch bao nhiêu.
 """
 import argparse, sqlite3
 from datetime import datetime
