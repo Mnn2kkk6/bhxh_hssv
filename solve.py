@@ -1,7 +1,7 @@
 """
 Ý 1 - CV 835/QLT: HSSV tham gia BHYT tháng 10/2024, đến nay đã dừng và chưa tham gia lại.
 
-Logic (xử lý từng part, vì mọi thẻ của một người nằm trọn trong một part):
+Logic (xử lý từng part, vì mọi thẻ của một người đều nằm trọn trong một part):
   1. Chỉ lấy thẻ hợp lệ: TRANG_THAI = 1
   2. Người "gốc"  : có thẻ MA_KHOI in (HS, SV) giao với tháng gốc
                     (TU_NGAY < đầu tháng kế tiếp  VÀ  DEN_NGAY >= đầu tháng gốc)
