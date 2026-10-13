@@ -1,3 +1,4 @@
+#Cài đặt các thư viện:
 pandas>=2.0
 numpy>=1.24
 pyarrow>=14.0
