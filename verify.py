@@ -42,7 +42,7 @@ def main():
         d["hs"] = d["hl"] & (d["MA_KHOI"] == "HS") & (d["tu"] <= G) & (d["den"] >= G)
         d["sv"] = d["hl"] & (d["MA_KHOI"] == "SV") & (d["tu"] <= G) & (d["den"] >= G)
         d["now"] = d["hl"] & (d["tu"] <= N) & (d["den"] >= N)
-        d["now_naive"] = (d["tu"] <= N) & (d["den"] >= N)             # quên lọc TRANG_THAI
+        d["now_naive"] = (d["tu"] <= N) & (d["den"] >= N)             # tránh quên lọc TRANG_THAI
         g = d.groupby("SO_SO_BHXH")[["hs", "sv", "now", "now_naive"]].any()
         base = g[g["hs"] | g["sv"]]
         stop = base[~base["now"]]
