@@ -6,7 +6,7 @@ Làm 3 việc theo thứ tự: **sinh dữ liệu giả → giải Ý 1 → đ�
 
 ---
 
-## 1. Quy mô dữ liệu
+## 1. Quy mô dữ liệu:
 
 | Hạng mục | Con số |
 |---|---|
@@ -19,7 +19,7 @@ Làm 3 việc theo thứ tự: **sinh dữ liệu giả → giải Ý 1 → đ�
 
 ---
 
-## 2. Các file trong bộ code
+## 2. Các file trong bộ code:
 
 | File | Dùng để làm gì |
 |---|---|
@@ -36,7 +36,7 @@ Ngoài ra, nếu muốn truy vấn dữ liệu bằng SQL (mục 6), bạn tự 
 
 ---
 
-## 3. Các file sinh ra sau khi chạy
+## 3. Các file sinh ra sau khi chạy:
 
 ### Sau `python gen_data.py` → thư mục `data/` (dữ liệu gốc, đầu vào)
 
@@ -73,7 +73,7 @@ gen_data.py → data/ (đầu vào) → solve.py → warehouse.db + output/*.csv
 
 ---
 
-## 4. Cách chạy bằng Terminal trong VS Code
+## 4. Cách chạy bằng Terminal trong VS Code:
 
 ### Bước 0 – Mở project
 1. Giải nén bộ code ra một thư mục, ví dụ `D:\hssv_bhyt`.
@@ -143,7 +143,7 @@ Cuối cùng phải thấy `TẤT CẢ ĐẠT ✔`.
 
 ---
 
-## 5. Cách xem dữ liệu
+## 5. Cách xem dữ liệu:
 
 Không có công cụ nào mở được cả 190 triệu dòng cùng lúc để cuộn xem. Dùng các cách sau tùy mục đích.
 
