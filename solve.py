@@ -170,7 +170,7 @@ def main():
         """, (k_goc, k_kt, ngay_xu_ly, k_goc, k_kt))
         con.execute("COMMIT")
     except BaseException:
-        con.execute("ROLLBACK")                     # lỗi giữa chừng => không để lại dữ liệu dở dang
+        con.execute("ROLLBACK")                     # lỗi giữa chừng => không để lại dữ liệu dở dang.
         raise
 
     rows = con.execute("""SELECT MA_TINH, TEN_TINH, SL_HOC_SINH_DUNG, SL_SINH_VIEN_DUNG, TONG_DUNG
