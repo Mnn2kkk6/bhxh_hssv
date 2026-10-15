@@ -15,7 +15,7 @@ Làm 3 việc theo thứ tự: **sinh dữ liệu giả → giải Ý 1 → đ�
 | Số bản ghi thẻ `ST_INTHE_DTL` | khoảng 190 triệu (trung bình ~9,5 thẻ/người) |
 | Giai đoạn | 01/2024 – 08/2026 |
 
-** Mỗi người có nhiều thẻ nối tiếp nhau nên 20 triệu người cho ra khoảng 200 triệu bản ghi thẻ, đúng yêu cầu đề. Tổng thực tế được in ở dòng cuối khi chạy `gen_data.py`.
+ Mỗi người có nhiều thẻ nối tiếp nhau nên 20 triệu người cho ra khoảng 200 triệu bản ghi thẻ, đúng yêu cầu đề. Tổng thực tế được in ở dòng cuối khi chạy `gen_data.py`.
 
 ---
 
