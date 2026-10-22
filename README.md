@@ -1,454 +1,377 @@
-# Tuần 1 – HSSV dừng tham gia BHYT (CV 835/QLT – Ý 1)
+# BHXH HSSV — Xử lý bài toán BHYT theo Công văn 835/QLT
 
-**Yêu cầu Ý 1:** Học sinh, sinh viên tham gia BHYT từ tháng 10/2024 nhưng đến nay đã dừng tham gia và chưa tham gia lại (tách riêng danh sách học sinh và sinh viên).
+Repository triển khai hai bài toán xử lý dữ liệu học sinh, sinh viên (HSSV) tham gia bảo hiểm y tế (BHYT), sử dụng bộ dữ liệu giả lập quy mô lớn để kiểm thử thuật toán và tổng hợp báo cáo theo tỉnh/thành phố.
 
-Làm 3 việc theo thứ tự: **sinh dữ liệu giả → giải Ý 1 → đối chiếu kết quả**.
+**Phạm vi:** Ý 1 — HSSV đã dừng tham gia; Ý 2 — HSSV vẫn tham gia nhưng có thời gian gián đoạn cộng dồn từ 90 ngày trở lên.
 
----
-
-## 1. Quy mô dữ liệu:
-
-| Hạng mục | Con số |
-|---|---|
-| Số người (đối tượng) | 20 triệu (`--persons 20000000`) |
-| Trong đó học sinh / sinh viên | ~3,8 triệu / ~1,2 triệu (HS 19%, SV 6%) |
-| Số bản ghi thẻ `ST_INTHE_DTL` | khoảng 190 triệu (trung bình ~9,5 thẻ/người) |
-| Giai đoạn | 01/2024 – 08/2026 |
-
- Mỗi người có nhiều thẻ nối tiếp nhau nên 20 triệu người cho ra khoảng 200 triệu bản ghi thẻ, đúng yêu cầu đề. Tổng thực tế được in ở dòng cuối khi chạy `gen_data.py`.
+> Dữ liệu trong dự án là **dữ liệu giả lập**, phục vụ phát triển và kiểm thử thuật toán; không phải dữ liệu nghiệp vụ thật.
 
 ---
 
-## 2. Các file trong bộ code:
+## Mục lục
 
-| File | Dùng để làm gì |
-|---|---|
-| `gen_data.py` | Sinh dữ liệu giả theo vòng đời người tham gia. |
-| `solve.py` | Giải Ý 1, ghi kết quả vào `warehouse.db` và xuất CSV. |
-| `verify.py` | Kiểm tra kết quả của `solve.py` bằng cách tính khác. |
-| `common.py` | Hàm đọc file dùng chung (không cần chạy hay sửa). |
-| `requirements.txt` | Danh sách thư viện Python cần cài: pandas, numpy, pyarrow, duckdb. |
-| `README.md` | File này. |
-
-Chỉ chạy trực tiếp 3 file: `gen_data.py`, `solve.py`, `verify.py`, theo đúng thứ tự đó.
-
-Ngoài ra, nếu muốn truy vấn dữ liệu bằng SQL (mục 6), bạn tự tạo thêm `query.py` và các file `.sql` (nội dung có sẵn trong README).
+- [Bài toán và quy tắc nghiệp vụ](#bài-toán-và-quy-tắc-nghiệp-vụ)
+- [Cách tiếp cận](#cách-tiếp-cận)
+- [Cấu trúc repository](#cấu-trúc-repository)
+- [Công nghệ sử dụng](#công-nghệ-sử-dụng)
+- [Cài đặt](#cài-đặt)
+- [Chạy chương trình](#chạy-chương-trình)
+- [Kiểm thử](#kiểm-thử)
+- [Định dạng kết quả](#định-dạng-kết-quả)
+- [Truy vấn dữ liệu](#truy-vấn-dữ-liệu)
+- [Lưu ý khi làm việc với dữ liệu lớn](#lưu-ý-khi-làm-việc-với-dữ-liệu-lớn)
 
 ---
 
-## 3. Các file sinh ra sau khi chạy:
+## Bài toán và quy tắc nghiệp vụ
 
-### Sau `python gen_data.py` → thư mục `data/` (dữ liệu gốc, đầu vào)
+### Ý 1 — HSSV dừng tham gia BHYT
 
-| File / thư mục | Nội dung |
-|---|---|
-| `data/ST_INTHE_DTL/part_*.parquet` | Bảng thẻ BHYT: số sổ BHXH, số thẻ, họ tên, ngày sinh, giới tính, CMND, địa chỉ, khối, ngày bắt đầu, ngày kết thúc, trạng thái, cơ quan BHXH. Chia thành nhiều file part (mỗi part 250.000 người, khoảng 80 part với 20 triệu người). |
-| `data/DM_BHXH.csv` | Danh mục cơ quan BHXH: 63 tỉnh/TP, mỗi tỉnh 6–10 cơ sở. Cơ sở trỏ lên tỉnh qua `MA_CHA`. |
-| `data/SCENARIO/part_*.parquet` | "Đáp án" do bộ sinh dữ liệu ghi sẵn: mỗi người thuộc kịch bản nào, thực tế có phải người đã dừng không. Chỉ `verify.py` dùng. |
-| `data/meta.json` | Tham số đã dùng để sinh (số người, seed...), để cả nhóm biết dữ liệu được sinh thế nào. |
+**Mục tiêu:** Lập riêng danh sách học sinh và sinh viên có tham gia BHYT trong tháng 10/2024 nhưng đã dừng tham gia và chưa tham gia lại tại tháng kiểm tra.
 
-Dữ liệu gốc lưu **Parquet**, không phải `.db`. Parquet nén tốt và đọc nhanh, phù hợp 190 triệu dòng. Bảng `ST_INTHE_DTL` ở đây là các file Parquet, tên cột giống bảng gốc.
+Một người thuộc kết quả khi đồng thời thỏa mãn:
 
-### Sau `python solve.py` → kết quả báo cáo
+1. Có ít nhất một thẻ hợp lệ (`TRANG_THAI = 1`) thuộc khối `HS` hoặc `SV`, giao với tháng 10/2024.
+2. Không có thẻ hợp lệ thuộc bất kỳ khối nào giao với tháng kiểm tra.
+3. Mỗi người chỉ xuất hiện một lần trong danh sách kết quả.
 
-| File | Nội dung |
-|---|---|
-| `warehouse.db` | CSDL SQLite chứa kết quả, gồm: `BC_HSSV_DUNG_THAM_GIA` (danh sách từng HSSV đã dừng), `TK_DBHC_HSSV_DUNG_THAM_GIA` (thống kê theo tỉnh/TP) và `DM_BHXH`. File này nhỏ, không chứa 190 triệu thẻ. |
-| `output/ds_hoc_sinh_dung_tham_gia_*.csv` | Danh sách **học sinh** đã dừng. |
-| `output/ds_sinh_vien_dung_tham_gia_*.csv` | Danh sách **sinh viên** đã dừng. |
-| `output/tk_dbhc_hssv_dung_tham_gia_*.csv` | Thống kê theo tỉnh/TP: số học sinh dừng, số sinh viên dừng, tổng. |
+Mặc định, tháng kiểm tra là tháng 08/2026, với tham số `--kiem-tra 2026-08-10`. Tham số này là ngày dùng để xác định tháng kiểm tra; phép kiểm tra tham gia được thực hiện trên toàn bộ tháng đó.
 
-Ba file trong `output/` là sản phẩm nộp cho yêu cầu Ý 1. File CSV có BOM nên mở bằng Excel không lỗi tiếng Việt.
+### Ý 2 — HSSV vẫn tham gia nhưng gián đoạn từ 90 ngày
 
-### Sau `python verify.py`
-Không có file mới. Chương trình in `[ĐẠT]` hoặc `[LỖI]` cho từng kiểm tra và một dòng kết luận.
+**Mục tiêu:** Tìm HSSV tham gia trong tháng 10/2024, vẫn có thẻ hợp lệ giao tháng 07/2026, nhưng tổng thời gian không được thẻ hợp lệ nào bao phủ trong khoảng giữa hai mốc đạt ít nhất 90 ngày.
 
-### Luồng tổng quát
+Các quy tắc chính:
 
+- **Thẻ hợp lệ:** Chỉ xét thẻ có `TRANG_THAI = 1`; thẻ hủy bị bỏ qua.
+- **Mốc gốc:** Có thẻ khối `HS` hoặc `SV` giao tháng 10/2024.
+- **Mốc hiện tại:** Có ít nhất một thẻ hợp lệ thuộc bất kỳ khối nào giao tháng 07/2026.
+- **Cửa sổ cá nhân:** Từ ngày đầu tiên có thẻ hợp lệ bao phủ trong tháng gốc đến ngày cuối cùng có thẻ hợp lệ bao phủ trong tháng hiện tại. Không mặc định mọi người đều bắt đầu ngày 01/10/2024 và kết thúc ngày 31/07/2026.
+- **Ngày có hiệu lực:** Bao gồm cả `TU_NGAY` và `DEN_NGAY`.
+- **Khoảng gián đoạn:** Sau khi gộp các thẻ chồng lấn hoặc nối tiếp, số ngày trống giữa hai khoảng là:
+
+  `Số ngày trống = TU_NGAY tiếp theo - DEN_NGAY trước đó - 1`
+
+- **Ngưỡng:** Tổng số ngày trống cộng dồn phải **≥ 90 ngày**. Đúng 90 ngày đạt điều kiện; 89 ngày không đạt.
+- **Phân loại:** Phân loại học sinh/sinh viên theo thẻ gốc ở tháng 10/2024. Tỉnh/TP thống kê theo cơ quan BHXH của thẻ gốc; thông tin cơ quan BHXH của thẻ đại diện tháng 07/2026 cũng được lưu để đối chiếu.
+
+Ví dụ biên: khoảng trống từ 01/01/2025 đến 31/03/2025 gồm 90 ngày (31 + 28 + 31), nên đạt ngưỡng.
+
+## Cách tiếp cận
+
+### Luồng xử lý tổng thể
+
+```text
+Dữ liệu Parquet + danh mục cơ quan BHXH
+                  |
+                  v
+       Đọc và xử lý từng part
+                  |
+        +---------+---------+
+        |                   |
+        v                   v
+   solve.py             solve_y2.py
+      Ý 1                   Ý 2
+        |                   |
+        +---------+---------+
+                  v
+          warehouse.db
+                  |
+         +--------+--------+
+         |                 |
+         v                 v
+    Báo cáo CSV       Thống kê tỉnh/TP
+         |
+         v
+       verify.py / test_y2.py
 ```
-gen_data.py → data/ (đầu vào) → solve.py → warehouse.db + output/*.csv (kết quả)
-                                    ↓
-                                verify.py → in [ĐẠT]/[LỖI] lên màn hình
-```
+
+### Ý 1
+
+`solve.py` lọc các thẻ hợp lệ, xác định người thuộc nhóm HSSV ở tháng gốc, rồi loại người còn thẻ hợp lệ giao tháng kiểm tra. Chương trình chọn một thẻ gốc đại diện cho mỗi người và lưu kết quả chi tiết, thống kê vào SQLite.
+
+`verify.py` đối chiếu kết quả bằng cách tính độc lập theo tháng, so sánh với kịch bản đáp án do bộ sinh dữ liệu tạo ra, đồng thời kiểm tra tính duy nhất và sự khớp nhau giữa bảng chi tiết với bảng thống kê.
+
+### Ý 2
+
+`solve_y2.py` xử lý theo từng part, không cần nạp toàn bộ dữ liệu vào RAM cùng lúc:
+
+1. Lọc thẻ hợp lệ và xác định người có thẻ HS/SV giao tháng 10/2024.
+2. Xác định người có thẻ hợp lệ bất kỳ giao tháng 07/2026; lấy giao của hai tập làm tập ứng viên.
+3. Tính cửa sổ riêng của mỗi người từ ngày có thẻ phủ đầu tiên ở tháng gốc đến ngày có thẻ phủ cuối cùng ở tháng hiện tại.
+4. Cắt các khoảng thẻ theo cửa sổ cá nhân; sắp xếp theo ngày và dùng `cummax` để gộp đúng cả những khoảng lồng nhau.
+5. Cộng dồn số ngày không được phủ và giữ người đạt ngưỡng.
+6. Chọn thẻ gốc và thẻ đại diện tháng hiện tại theo quy tắc xác định; chỉ đọc các cột thông tin cá nhân cần thiết cho những người đạt điều kiện.
+7. Ghi dữ liệu trong transaction SQLite. Nếu xử lý lỗi, transaction được rollback; chạy lại cùng cặp mốc sẽ thay thế kết quả cũ của đúng cặp mốc đó.
+
+Hai bài toán dùng **các bảng kết quả riêng**, vì vậy chạy Ý 2 không ghi đè bảng chi tiết hoặc thống kê của Ý 1.
 
 ---
 
-## 4. Cách chạy bằng Terminal trong VS Code:
+## Cấu trúc repository
 
-### Bước 0 – Mở project
-1. Giải nén bộ code ra một thư mục, ví dụ `D:\hssv_bhyt`.
-2. VS Code: **File → Open Folder…** → chọn thư mục đó.
-3. Mở terminal: **Terminal → New Terminal** (hoặc **Ctrl + `**).
+| File / thư mục | Chức năng |
+|---|---|
+| `gen_data.py` | Sinh dữ liệu BHYT giả lập theo vòng đời người tham gia. |
+| `data/ST_INTHE_DTL/part_*.parquet` | Các phần dữ liệu thẻ BHYT đầu vào. |
+| `data/DM_BHXH.csv` | Danh mục cơ quan BHXH dùng để quy đổi cơ quan sang tỉnh/TP. |
+| `data/SCENARIO/part_*.parquet` | Kịch bản đáp án do bộ sinh dữ liệu tạo, dùng để kiểm chứng Ý 1. |
+| `data/meta.json` | Lưu tham số sinh dữ liệu, gồm số người, seed và định dạng. |
+| `common.py` | Hàm đọc từng part và nạp danh mục dùng chung. |
+| `solve.py` | Thuật toán Ý 1; ghi bảng kết quả và xuất CSV. |
+| `verify.py` | Đối chiếu độc lập kết quả Ý 1. |
+| `solve_y2.py` | Thuật toán Ý 2; tự tạo bảng, xử lý dữ liệu và xuất CSV. |
+| `test_y2.py` | Bộ test thuật toán Ý 2 với các trường hợp dựng sẵn và dữ liệu ngẫu nhiên. |
+| `export_y2.py` | Tiện ích xuất lại các CSV Ý 2 từ `warehouse.db` theo các mốc cấu hình trong file. |
+| `y2_ddl_queries.sql` | DDL và các truy vấn tham khảo cho bảng kết quả Ý 2. |
+| `run_sql.py` | Tiện ích chạy tập lệnh SQL trên SQLite. |
+| `requirements.txt` | Danh sách thư viện Python. |
+| `Tuan 2/` | Tài liệu phân tích nghiệp vụ, luồng dữ liệu, thuật toán và test case của Ý 2. |
+| `output/` | CSV kết quả Ý 1. |
+| `output_y2/` | CSV kết quả Ý 2. |
+| `warehouse.db` | Cơ sở dữ liệu SQLite được tạo khi chạy chương trình. |
 
-### Bước 1 – Kiểm tra Python (cần 3.9 trở lên)
-```
-python --version
-```
-Windows báo lỗi thì thử `py --version` (và dùng `py` thay cho `python` ở các lệnh sau). Chưa có Python: tải tại python.org, khi cài tick **Add Python to PATH**, rồi đóng và mở lại VS Code.
+### Dữ liệu hiện có
 
-### Bước 2 – Tạo môi trường ảo và cài thư viện
+Theo `data/meta.json`, bộ dữ liệu được cấu hình với:
 
-**Windows (PowerShell):**
-```
+| Tham số | Giá trị |
+|---|---|
+| Số người | 20.000.000 |
+| Seed | `42` |
+| Kích thước mỗi chunk khi sinh | 250.000 người |
+| Định dạng dữ liệu thẻ | Parquet |
+| Thời gian mô phỏng | 01/2024–08/2026 |
+
+Số bản ghi thẻ thực tế có thể thay đổi theo kết quả sinh dữ liệu. Bộ dữ liệu và các CSV kết quả có dung lượng lớn; hãy kiểm tra dung lượng ổ đĩa trước khi tải hoặc tạo lại dữ liệu.
+
+---
+
+## Công nghệ sử dụng
+
+- **Python** — triển khai thuật toán và luồng xử lý.
+- **Pandas / NumPy** — lọc, sắp xếp, tổng hợp dữ liệu theo từng part.
+- **Parquet / PyArrow** — lưu trữ và đọc dữ liệu lớn theo từng phần.
+- **SQLite** — lưu kết quả chi tiết, bảng thống kê và hỗ trợ chạy lại theo từng cặp mốc.
+- **DuckDB** — truy vấn phân tích dữ liệu Parquet bằng SQL.
+- **CSV UTF-8 with BOM** — xuất danh sách có thể mở bằng Excel mà hạn chế lỗi font tiếng Việt.
+
+---
+
+## Cài đặt
+
+Yêu cầu Python 3.9 trở lên. Các lệnh dưới đây chạy từ thư mục gốc của repository.
+
+### 1. Tạo môi trường ảo
+
+**Windows PowerShell:**
+
+```powershell
 python -m venv .venv
-.venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
-Nếu báo *"running scripts is disabled"*, chạy `Set-ExecutionPolicy -Scope Process Bypass` rồi kích hoạt lại.
-Dùng Command Prompt thì kích hoạt bằng `.venv\Scripts\activate.bat`.
+
+Nếu PowerShell chặn kích hoạt môi trường, có thể cho phép trong phiên terminal hiện tại rồi kích hoạt lại:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+.\.venv\Scripts\Activate.ps1
+```
 
 **macOS / Linux:**
-```
+
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
-Lệnh `pip install -r requirements.txt` cài luôn cả `duckdb` (dùng cho mục 6). Nếu bạn đã cài trước đó mà chưa có duckdb, chạy lại lệnh này hoặc `pip install duckdb`.
-
-Kích hoạt thành công khi đầu dòng lệnh có chữ `(.venv)`. Nếu VS Code hỏi chọn môi trường mới, chọn **Yes**.
-
-### Bước 3 – Sinh dữ liệu
-
-Chạy thử nhỏ trước (200.000 người, khoảng 1,9 triệu thẻ):
-```
-python gen_data.py --persons 200000
-```
-Chạy đủ quy mô đề bài:
-```
-python gen_data.py --persons 20000000 --seed 42
-```
-- Ước tính 10–30 phút và 10–20 GB ổ đĩa (chưa đo thực tế ở quy mô này, nên chạy thử nhỏ trước).
-- Bị ngắt giữa chừng: chạy lại đúng lệnh đó kèm `--resume`.
-- Máy ít RAM: thêm `--chunk 100000`.
-- Cài `pyarrow` lỗi hoặc đọc/ghi Parquet lỗi: thêm `--format csv` (tốn ổ đĩa hơn nhiều).
-- Cả nhóm dùng chung một bộ dữ liệu: cùng `--persons` và `--seed` thì dữ liệu giống hệt nhau từng dòng.
-
-### Bước 4 – Giải Ý 1
-```
-python solve.py
-```
-Tùy chọn:
-- `--goc 2024-10`: tháng gốc.
-- `--kiem-tra 2026-08-10`: mốc "đến nay".
-- `--data`, `--db`, `--out`: đổi đường dẫn dữ liệu, file CSDL, thư mục xuất.
-- `--no-export`: không xuất CSV.
-
-Kết quả: bảng thống kê theo tỉnh/TP và tổng cộng in trên terminal, cộng `warehouse.db` và thư mục `output/`.
-
-### Bước 5 – Đối chiếu
-```
-python verify.py
-```
-Cuối cùng phải thấy `TẤT CẢ ĐẠT ✔`.
 
 ---
 
-## 5. Cách xem dữ liệu:
+## Chạy chương trình
 
-Không có công cụ nào mở được cả 190 triệu dòng cùng lúc để cuộn xem. Dùng các cách sau tùy mục đích.
+### Sử dụng dữ liệu đã có trong repository
 
-**Xem vài dòng đầu của một part:**
+Nếu thư mục `data/` đã chứa các part Parquet và `DM_BHXH.csv`, **không cần chạy lại `gen_data.py`**.
+
+#### Bước 1 — Giải Ý 1
+
+```bash
+python solve.py --goc 2024-10 --kiem-tra 2026-08-10
 ```
-python -c "import pandas as pd; pd.set_option('display.width',250); pd.set_option('display.max_columns',None); print(pd.read_parquet('data/ST_INTHE_DTL/part_00000.parquet').head(20))"
+
+Chương trình mặc định đọc `data/`, lưu vào `warehouse.db` và xuất kết quả trong `output/`.
+
+#### Bước 2 — Kiểm chứng Ý 1
+
+```bash
+python verify.py --goc 2024-10 --kiem-tra 2026-08-10
 ```
 
-**Xem toàn bộ lịch sử thẻ của một người** (số sổ chạy từ `1000000001` đến `1020000000`):
-```
-python -c "import pandas as pd; pd.set_option('display.width',250); pd.set_option('display.max_columns',None); d=pd.read_parquet('data/ST_INTHE_DTL/part_00000.parquet'); print(d[d.SO_SO_BHXH=='1000000001'].sort_values('TU_NGAY'))"
-```
-(Người đó phải nằm trong part được đọc. Part 00000 chứa người số 1 đến 250.000.)
+Kiểm tra kết luận cuối cùng trên terminal. Nếu có mục `[LỖI]`, hãy xem chi tiết đối chiếu trước khi sử dụng kết quả.
 
-**Đếm, tổng hợp trên toàn bộ dữ liệu bằng SQL:** dùng DuckDB, xem hướng dẫn và các câu truy vấn mẫu ở **mục 6**.
+#### Bước 3 — Giải Ý 2
 
-**Giao diện trong VS Code:**
-- Extension tìm từ khóa *parquet viewer* để mở từng file part.
-- Extension *SQLite Viewer* để mở `warehouse.db`.
-- Extension *Rainbow CSV* để đọc CSV dễ hơn.
+```bash
+python solve_y2.py --goc 2024-10 --thang-cuoi 2026-07 --nguong 90
+```
+
+Chương trình mặc định đọc `data/`, cập nhật các bảng Ý 2 trong `warehouse.db` và xuất ba CSV vào `output_y2/`. Các bảng Ý 1 được giữ riêng.
+
+#### Xem tham số hỗ trợ
+
+```bash
+python solve.py --help
+python verify.py --help
+python solve_y2.py --help
+python gen_data.py --help
+```
+
+### Sinh bộ dữ liệu nhỏ để thử nghiệm
+
+Chỉ dùng bước này khi muốn tạo dữ liệu thử riêng. Đặt dữ liệu vào `data_small/` để tránh ghi đè bộ dữ liệu hiện có trong `data/`.
+
+```bash
+python gen_data.py --persons 200000 --seed 42 --chunk 50000 --out data_small
+```
+
+Sau khi sinh dữ liệu, chạy Ý 1 và Ý 2 trên cùng cơ sở dữ liệu thử nghiệm:
+
+```bash
+python solve.py --data data_small --db warehouse_small.db --out output_y1_small
+python verify.py --data data_small --db warehouse_small.db
+python solve_y2.py --data data_small --db warehouse_small.db --out output_y2_small
+```
+
+Khi cần tái lập cùng một bộ dữ liệu, dùng cùng giá trị `--persons` và `--seed`. Không chạy lệnh sinh dữ liệu trên thư mục đầu vào đang sử dụng nếu chưa sao lưu.
+
+### Tham số thường dùng
+
+| Chương trình | Tham số | Ý nghĩa |
+|---|---|---|
+| `gen_data.py` | `--persons` | Số người cần sinh. |
+| `gen_data.py` | `--seed` | Seed để tái lập dữ liệu. |
+| `gen_data.py` | `--chunk` | Số người xử lý mỗi chunk khi sinh. |
+| `gen_data.py` | `--out` | Thư mục dữ liệu đầu ra. |
+| `solve.py` / `verify.py` | `--data` | Thư mục chứa dữ liệu đầu vào. |
+| `solve.py` / `verify.py` | `--db` | Đường dẫn cơ sở dữ liệu SQLite. |
+| `solve.py` | `--goc` | Tháng gốc, định dạng `YYYY-MM`. |
+| `solve.py` / `verify.py` | `--kiem-tra` | Ngày dùng để xác định tháng kiểm tra, định dạng `YYYY-MM-DD`. |
+| `solve_y2.py` | `--goc` | Tháng gốc, mặc định `2024-10`. |
+| `solve_y2.py` | `--thang-cuoi` | Tháng hiện tại, mặc định `2026-07`. |
+| `solve_y2.py` | `--nguong` | Ngưỡng gián đoạn tính theo ngày, mặc định `90`. |
+| Các script xử lý | `--out` | Thư mục xuất CSV, nếu script có hỗ trợ. |
 
 ---
 
-## 6. Truy vấn dữ liệu gốc bằng SQL (DuckDB)
+## Kiểm thử
 
-DuckDB đọc trực tiếp các file Parquet và cho phép viết SQL, không cần cài CSDL. Cả thư mục `data/ST_INTHE_DTL/*.parquet` được coi là **một bảng duy nhất**, nên bạn không cần quan tâm dữ liệu chia thành bao nhiêu part.
+### Test Ý 2
 
-> Các câu SQL trong mục này chưa được chạy thử trong quá trình làm bài. Hãy chạy thử trên dữ liệu nhỏ (`--persons 200000`) trước, và đối chiếu Q5 với kết quả của `solve.py`. Nếu lỗi, kiểm tra đường dẫn và gửi thông báo lỗi để chỉnh.
+`test_y2.py` có 20 tình huống kiểm thử dựng sẵn, bao gồm:
 
-### 6.1. Cài đặt
+- Khoảng trống đúng 90 ngày và 89 ngày.
+- Thẻ nối tiếp, chồng lấn và lồng nhau.
+- Thẻ bị hủy.
+- Nhiều khoảng trống ngắn được cộng dồn.
+- Cửa sổ cá nhân không bắt đầu đúng ngày 01/10 hoặc không kết thúc ngày 31/07.
+- Không đủ điều kiện ở mốc gốc hoặc mốc hiện tại.
+- Quy tắc chọn thẻ gốc và thẻ đại diện tháng hiện tại.
+
+Bộ test còn so sánh thuật toán gộp khoảng với cách tính độc lập bằng tập ngày trên dữ liệu ngẫu nhiên.
+
+Chạy:
+
+```bash
+python test_y2.py
 ```
-pip install duckdb
-```
-(đã có sẵn nếu bạn chạy `pip install -r requirements.txt` với bản `requirements.txt` mới).
 
-### 6.2. Cách chạy
+### Các đối chiếu nên thực hiện sau khi xử lý
 
-**Cách 1 – Một câu lệnh trong terminal (ngắn):**
-```
+- Mỗi người chỉ có một dòng trong bảng chi tiết theo cặp mốc.
+- Tổng số người trong bảng thống kê bằng tổng số dòng trong bảng chi tiết.
+- Mọi bản ghi Ý 2 đều có `TONG_NGAY_GIAN_DOAN >= NGUONG_NGAY`.
+- Kết quả Ý 1 vượt qua các bước kiểm tra của `verify.py`.
+- Khi chạy lại cùng tham số, số dòng kết quả không bị nhân đôi.
+
+---
+
+## Định dạng kết quả
+
+### Ý 1
+
+Trong `warehouse.db`:
+
+- `BC_HSSV_DUNG_THAM_GIA` — danh sách chi tiết HSSV đã dừng tham gia.
+- `TK_DBHC_HSSV_DUNG_THAM_GIA` — thống kê học sinh, sinh viên và tổng số theo tỉnh/TP.
+
+Các CSV được xuất vào `output/`, gồm danh sách học sinh, danh sách sinh viên và bảng thống kê tỉnh/TP.
+
+### Ý 2
+
+Trong `warehouse.db`:
+
+- `BC_HSSV_GIAN_DOAN_THAM_GIA` — danh sách chi tiết người đạt điều kiện.
+- `TK_DBHC_HSSV_GIAN_DOAN_THAM_GIA` — thống kê theo tỉnh/TP.
+
+Các trường nổi bật trong bảng chi tiết gồm:
+
+| Trường | Ý nghĩa |
+|---|---|
+| `SO_SO_BHXH` | Mã định danh người tham gia trong bộ dữ liệu. |
+| `LOAI_HSSV` | Phân loại `HOC_SINH` hoặc `SINH_VIEN` theo thẻ gốc. |
+| `MA_KHOI_GOC` | Khối đối tượng của thẻ gốc. |
+| `MA_KHOI_HT` | Khối đối tượng của thẻ đại diện ở tháng hiện tại. |
+| `MA_TINH_GOC`, `TEN_TINH_GOC` | Tỉnh/TP theo cơ quan của thẻ gốc. |
+| `MA_TINH_HT`, `TEN_TINH_HT` | Tỉnh/TP theo cơ quan của thẻ đại diện hiện tại. |
+| `NGAY_BAT_DAU_CUA_SO` | Ngày đầu tiên có thẻ phủ trong tháng gốc. |
+| `NGAY_KET_THUC_CUA_SO` | Ngày cuối cùng có thẻ phủ trong tháng hiện tại. |
+| `SO_KHOANG_GIAN_DOAN` | Số khoảng gián đoạn. |
+| `TONG_NGAY_GIAN_DOAN` | Tổng số ngày gián đoạn cộng dồn. |
+| `SO_THANG_QUY_DOI` | Số tháng quy đổi để hiển thị, tính bằng tổng ngày chia 30; không dùng làm điều kiện lọc. |
+| `NGUONG_NGAY` | Ngưỡng dùng để xác định kết quả. |
+
+Các CSV Ý 2 có tên theo mốc xử lý, ví dụ:
+
+- `output_y2/ds_hoc_sinh_gian_doan_tham_gia_goc202410_cuoi202607.csv`
+- `output_y2/ds_sinh_vien_gian_doan_tham_gia_goc202410_cuoi202607.csv`
+- `output_y2/tk_dbhc_hssv_gian_doan_tham_gia_goc202410_cuoi202607.csv`
+
+Tất cả CSV được ghi với mã hóa `utf-8-sig` để hỗ trợ mở bằng Excel.
+
+---
+
+## Truy vấn dữ liệu
+
+Có thể dùng DuckDB để phân tích trực tiếp dữ liệu Parquet, không cần nhập tất cả dữ liệu vào SQLite.
+
+Ví dụ đếm số bản ghi thẻ:
+
+```bash
 python -c "import duckdb; duckdb.sql(\"SELECT COUNT(*) FROM 'data/ST_INTHE_DTL/*.parquet'\").show()"
 ```
 
-**Cách 2 – Viết SQL trong file rồi chạy (nên dùng cho câu dài):**
+Để xem lịch sử thẻ của một người, có thể dùng Pandas hoặc truy vấn DuckDB với điều kiện `SO_SO_BHXH`. Không gộp thư mục `SCENARIO` vào truy vấn bảng thẻ vì đây là dữ liệu khác cấu trúc.
 
-Tạo file `query.py` ở thư mục gốc project:
-```python
-import sys
-import duckdb
-
-con = duckdb.connect()
-con.execute("SET threads TO 4")            # tăng/giảm tùy máy
-con.execute("SET memory_limit = '4GB'")    # giới hạn RAM, tùy máy
-sql = open(sys.argv[1], encoding="utf-8").read()
-con.sql(sql).show(max_rows=50, max_width=250)
-```
-Tạo file `.sql` (ví dụ `q1.sql`) chứa **một câu SQL**, rồi chạy:
-```
-python query.py q1.sql
-```
-Sửa SQL trong VS Code, lưu, chạy lại lệnh là xong.
-
-**Cách 3 – DuckDB CLI:** tải chương trình `duckdb` từ duckdb.org, mở trong terminal VS Code rồi gõ SQL tương tác.
-
-**Lưu ý chung:**
-- Chạy lệnh từ **thư mục gốc project**, vì đường dẫn `data/...` là đường dẫn tương đối.
-- Truy vấn trên toàn bộ 190 triệu dòng có thể mất vài chục giây đến vài phút. Muốn thử nhanh, đọc một part: `'data/ST_INTHE_DTL/part_00000.parquet'`.
-- Dữ liệu sinh bằng `--format csv` thì thay `*.parquet` bằng `*.csv`.
-- Chỉ đọc thư mục `ST_INTHE_DTL`, đừng gộp chung với `SCENARIO` (khác cột).
-- Các cột ngày lưu dạng timestamp (00:00:00); so sánh với `DATE '2024-10-01'` vẫn đúng.
-
-### 6.3. Các câu truy vấn mẫu
-
-**Q1 – Tổng số bản ghi thẻ** (`q1.sql`)
-```sql
-SELECT COUNT(*) AS tong_the
-FROM 'data/ST_INTHE_DTL/*.parquet';
-```
-
-**Q2 – Số thẻ và số người theo khối** (`q2.sql`)
-```sql
-SELECT MA_KHOI,
-       COUNT(*)                   AS so_the,
-       COUNT(DISTINCT SO_SO_BHXH) AS so_nguoi
-FROM 'data/ST_INTHE_DTL/*.parquet'
-GROUP BY MA_KHOI
-ORDER BY so_the DESC;
-```
-
-**Q3 – Thẻ hợp lệ và thẻ hủy** (`q3.sql`)
-```sql
-SELECT TRANG_THAI, COUNT(*) AS so_the
-FROM 'data/ST_INTHE_DTL/*.parquet'
-GROUP BY TRANG_THAI;
-```
-
-**Q4 – Lịch sử thẻ của một người** (`q4.sql`; đổi số sổ BHXH, từ `1000000001` đến `1020000000`)
-```sql
-SELECT ID, SO_SO_BHXH, SO_THE_KCB, MA_KHOI, TU_NGAY, DEN_NGAY, TRANG_THAI, DM_BHXH_ID
-FROM 'data/ST_INTHE_DTL/*.parquet'
-WHERE SO_SO_BHXH = '1000000001'
-ORDER BY TU_NGAY, ID;
-```
-
-**Q5 – Số HSSV tháng 10/2024 đã dừng và chưa tham gia lại (Ý 1), tách học sinh / sinh viên** (`q5.sql`)
-
-Cùng logic với `solve.py`: thẻ hợp lệ, một thẻ gốc mỗi người, loại người còn thẻ hợp lệ (mọi khối) giao tháng 08/2026.
-```sql
-WITH the_hl AS (
-    SELECT ID, SO_SO_BHXH, MA_KHOI, TU_NGAY, DEN_NGAY
-    FROM 'data/ST_INTHE_DTL/*.parquet'
-    WHERE TRANG_THAI = 1
-),
-goc AS (
-    SELECT *
-    FROM (
-        SELECT *,
-               ROW_NUMBER() OVER (
-                   PARTITION BY SO_SO_BHXH
-                   ORDER BY DEN_NGAY DESC, TU_NGAY DESC,
-                            CASE WHEN MA_KHOI = 'SV' THEN 0 ELSE 1 END, ID DESC
-               ) AS rn
-        FROM the_hl
-        WHERE MA_KHOI IN ('HS', 'SV')
-          AND TU_NGAY  < DATE '2024-11-01'
-          AND DEN_NGAY >= DATE '2024-10-01'
-    ) AS t
-    WHERE rn = 1
-)
-SELECT g.MA_KHOI,
-       COUNT(*) AS so_nguoi_dung
-FROM goc g
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM the_hl h
-    WHERE h.SO_SO_BHXH = g.SO_SO_BHXH
-      AND h.TU_NGAY  < DATE '2026-09-01'
-      AND h.DEN_NGAY >= DATE '2026-08-01'
-)
-GROUP BY g.MA_KHOI
-ORDER BY g.MA_KHOI;
-```
-Kết quả (`HS` và `SV`) phải khớp với cột "Học sinh" và "Sinh viên" của dòng TỔNG CỘNG trong `solve.py`.
-
-**Q6 – Thống kê Ý 1 theo tỉnh/TP** (`q6.sql`)
-
-Thêm bước quy đổi cơ quan BHXH → tỉnh qua `DM_BHXH.csv`.
-```sql
-WITH the_hl AS (
-    SELECT ID, SO_SO_BHXH, MA_KHOI, TU_NGAY, DEN_NGAY, DM_BHXH_ID
-    FROM 'data/ST_INTHE_DTL/*.parquet'
-    WHERE TRANG_THAI = 1
-),
-goc AS (
-    SELECT *
-    FROM (
-        SELECT *,
-               ROW_NUMBER() OVER (
-                   PARTITION BY SO_SO_BHXH
-                   ORDER BY DEN_NGAY DESC, TU_NGAY DESC,
-                            CASE WHEN MA_KHOI = 'SV' THEN 0 ELSE 1 END, ID DESC
-               ) AS rn
-        FROM the_hl
-        WHERE MA_KHOI IN ('HS', 'SV')
-          AND TU_NGAY  < DATE '2024-11-01'
-          AND DEN_NGAY >= DATE '2024-10-01'
-    ) AS t
-    WHERE rn = 1
-),
-dung AS (
-    SELECT g.*
-    FROM goc g
-    WHERE NOT EXISTS (
-        SELECT 1
-        FROM the_hl h
-        WHERE h.SO_SO_BHXH = g.SO_SO_BHXH
-          AND h.TU_NGAY  < DATE '2026-09-01'
-          AND h.DEN_NGAY >= DATE '2026-08-01'
-    )
-),
-dm AS (
-    SELECT ID, MA_DVI, MA_CHA,
-           CASE WHEN MA_CHA = '00' THEN MA_DVI ELSE MA_CHA END AS MA_TINH
-    FROM read_csv('data/DM_BHXH.csv', types = {'MA_DVI': 'VARCHAR', 'MA_CHA': 'VARCHAR'})
-),
-tinh AS (
-    SELECT MA_DVI AS MA_TINH, TEN_DVI AS TEN_TINH
-    FROM read_csv('data/DM_BHXH.csv', types = {'MA_DVI': 'VARCHAR', 'MA_CHA': 'VARCHAR'})
-    WHERE MA_CHA = '00'
-)
-SELECT t.MA_TINH,
-       t.TEN_TINH,
-       SUM(CASE WHEN d.MA_KHOI = 'HS' THEN 1 ELSE 0 END) AS so_hoc_sinh_dung,
-       SUM(CASE WHEN d.MA_KHOI = 'SV' THEN 1 ELSE 0 END) AS so_sinh_vien_dung,
-       COUNT(*)                                          AS tong_dung
-FROM dung d
-JOIN dm   ON dm.ID = d.DM_BHXH_ID
-JOIN tinh t ON t.MA_TINH = dm.MA_TINH
-GROUP BY t.MA_TINH, t.TEN_TINH
-ORDER BY tong_dung DESC;
-```
-Đổi hai mốc ngày (`2024-10`, `2026-08`) nếu cần kiểm tra mốc khác. Nhớ đổi **cả hai** chỗ `TU_NGAY < ...` và `DEN_NGAY >= ...` cho mỗi mốc.
-
-**Q7 – Chỉ thử trên một part (chạy nhanh khi kiểm tra cú pháp)**
-```sql
-SELECT MA_KHOI, COUNT(*) AS so_the
-FROM 'data/ST_INTHE_DTL/part_00000.parquet'
-GROUP BY MA_KHOI;
-```
-
-### 6.4. Dùng SQL để đối chiếu với `solve.py`
-Nếu nhóm bạn muốn đối chiếu số liệu giữa hai người, chạy Q5 hoặc Q6 và so với bảng tổng hợp của `solve.py` (in trên terminal hoặc file `output/tk_dbhc_hssv_dung_tham_gia_*.csv`). Hai cách làm khác nhau mà số liệu vẫn trùng là dấu hiệu logic đúng. Nếu lệch, kiểm tra các giả định ở mục 8 (cách chọn thẻ gốc, mốc "đến nay").
+File `y2_ddl_queries.sql` chứa DDL và các truy vấn báo cáo/thẩm tra tham khảo cho Ý 2. Trong quy trình thông thường, `solve_y2.py` đã tự tạo bảng và chỉ mục cần thiết nên không cần chạy DDL thủ công.
 
 ---
 
-## 7. Phương pháp làm
+## Lưu ý khi làm việc với dữ liệu lớn
 
-### 7.1. Nghiệp vụ
-
-**"Có tham gia BHYT tại tháng M"** = có ít nhất một thẻ hợp lệ (`TRANG_THAI = 1`) mà thời hạn thẻ giao với tháng M:
-- `TU_NGAY < đầu tháng (M+1)` và
-- `DEN_NGAY >= đầu tháng M`.
-
-Không xét cố định một ngày, vì thẻ HSSV có thể bắt đầu và kết thúc ở ngày bất kỳ trong tháng.
-
-**Ý 1 = tập A trừ tập B:**
-- **A (mốc gốc):** có thẻ HS hoặc SV hợp lệ giao tháng 10/2024.
-- **B (hiện tại):** có **bất kỳ thẻ hợp lệ nào, mọi khối**, giao tháng 08/2026 (tháng của ngày kiểm tra 10/08/2026).
-- Kết quả = người thuộc A mà không thuộc B.
-
-Vì B tính mọi khối nên:
-
-| Tình huống | Có tính là "dừng"? |
-|---|---|
-| HSSV chuyển sang khối DN/GD và vẫn còn thẻ hợp lệ | Không (vẫn tham gia BHYT) |
-| Dừng một thời gian rồi mua lại | Không (đã tham gia lại) |
-| Chuyển trường / địa bàn, thẻ nối tiếp | Không |
-| Thẻ hủy (`TRANG_THAI=0`) có hạn kéo dài | Bỏ qua thẻ hủy, vẫn là "dừng" |
-| Bắt đầu sau 10/2024, hoặc hết hạn trước 10/2024 | Không thuộc tập gốc |
-| Chuyển DN rồi nghỉ việc trước 08/2026 | Có |
-
-### 7.2. Thuật toán trong `solve.py`
-
-Xử lý **từng part** vì mọi thẻ của một người nằm trọn trong một part, nên RAM thấp và quy mô 200 triệu dòng vẫn chạy được trên laptop.
-
-1. Đọc nhẹ các cột cần thiết, giữ thẻ có `TRANG_THAI = 1`.
-2. Lọc thẻ HS/SV giao tháng 10/2024, mỗi người giữ **một thẻ gốc**.
-3. Tìm tập người còn thẻ hợp lệ (mọi khối) giao tháng 08/2026.
-4. Loại họ khỏi tập gốc.
-5. Chỉ với số người còn lại mới đọc thêm các cột nặng (họ tên, địa chỉ...).
-6. Quy đổi cơ quan BHXH về tỉnh/TP qua `DM_BHXH`.
-7. Ghi vào bảng chi tiết, rồi tổng hợp theo tỉnh vào bảng thống kê.
-
-### 7.3. Chạy lại được (idempotent)
-
-Mỗi lần chạy: xóa kết quả cũ của đúng cặp (`NGAY_GOC`, `NGAY_KIEM_TRA`), ghi mới, trong **một transaction**. Lỗi giữa chừng thì tự rollback, không để dữ liệu dở dang và không bị nhân đôi. Bảng chi tiết có khóa chính (`NGAY_GOC`, `NGAY_KIEM_TRA`, `SO_SO_BHXH`). Thử bằng cách chạy `python solve.py` hai lần, tổng số dòng giữ nguyên.
-
-### 7.4. Cách sinh dữ liệu theo vòng đời
-
-- Mỗi người có 1–2 giai đoạn; mỗi giai đoạn là chuỗi thẻ nối tiếp, chu kỳ 1/3/6/12 tháng.
-- Độ tuổi đúng khối: Học sinh 6–18, Sinh viên 18–25, Trẻ em dưới 6.
-- Thẻ HSSV tập trung bắt đầu tháng 1 hoặc tháng 10; kết thúc nhiều vào mùa hè (tháng 6–9).
-- Các kịch bản của HSSV: tham gia liên tục · dừng hẳn · chuyển DN/GD (tiếp tục hoặc rồi dừng) · chuyển trường/địa bàn (tiếp tục hoặc rồi dừng) · gián đoạn rồi quay lại · bắt đầu sau 10/2024 · hết hạn trước 10/2024 · chỉ có thẻ hủy · dừng kèm thẻ hủy "kéo dài" · học sinh lên sinh viên.
-- Trẻ em dưới 6 tuổi lên Học sinh từ năm 2025; khoảng 3% thẻ có bản ghi cấp đổi/hủy.
-- Số ngẫu nhiên tính theo (mã người, seed) nên cùng tham số thì ra cùng dữ liệu, bất kể chia part thế nào.
-
-### 7.5. Cách đối chiếu trong `verify.py`
-
-| Kiểm tra | Ý nghĩa |
-|---|---|
-| (A) Cách tính độc lập | Quy ngày về chỉ số tháng rồi dùng groupby/any, khác hẳn cách lọc ngày và loại trừ của `solve.py`. Hai tập người phải trùng nhau. |
-| (A) Phân loại HS/SV | Khớp với cách tính độc lập (với người không mơ hồ). |
-| (B) Đáp án kịch bản | Tập người dừng phải bằng đáp án ghi sẵn trong `SCENARIO`. |
-| (C) Tự nhất quán | Mỗi người đúng một dòng; tổng thống kê bằng tổng chi tiết. |
-| Thông tin thêm | Nếu quên lọc `TRANG_THAI=1` thì kết quả lệch bao nhiêu. |
-
-Trên dữ liệu thử 100.000 người, tất cả kiểm tra đều đạt.
-
-### 7.6. Công nghệ
-
-Python + pandas + numpy, dữ liệu gốc Parquet chia part, kết quả SQLite. Logic (lọc → giao tháng → loại trừ → một dòng mỗi người → gộp tỉnh) chuyển sang Spark/SQL (Oracle, Hive...) rất trực tiếp khi lên hệ thống thật.
+- Bắt đầu bằng bộ dữ liệu nhỏ để xác nhận môi trường và quy trình trước khi chạy toàn bộ dữ liệu.
+- Mỗi part được xử lý riêng; tránh tự đọc hoặc ghép toàn bộ hàng triệu bản ghi vào một DataFrame nếu máy không đủ RAM.
+- Chỉ đọc các cột cần thiết khi xử lý. Chương trình chỉ nạp các cột thông tin cá nhân bổ sung cho những người được giữ lại.
+- Không sinh lại dữ liệu vào thư mục `data/` đang sử dụng nếu chưa có bản sao lưu.
+- `warehouse.db` lưu kết quả báo cáo, không thay thế bộ dữ liệu thẻ Parquet đầu vào.
+- Kết quả phụ thuộc vào bộ dữ liệu, mốc tháng và ngưỡng được truyền vào; hãy lưu lại tham số khi cần tái lập báo cáo.
 
 ---
 
-## 8. Các giả định cần thống nhất với bạn cùng nhóm
+## Tài liệu liên quan
 
-1. **Mỗi người một dòng.** Nếu tháng 10/2024 có cả thẻ HS và SV, lấy thẻ có `DEN_NGAY` muộn nhất; hòa thì `TU_NGAY` muộn nhất; hòa nữa thì ưu tiên SV; cuối cùng `ID` lớn nhất.
-2. **Tỉnh/TP theo cơ quan quản lý thẻ gốc** (tháng 10/2024), quy đổi qua `DM_BHXH`. Tỉnh có `MA_CHA = '00'`; cơ sở có `MA_CHA` là mã tỉnh.
-3. **"Đến nay" xét theo tháng** của ngày kiểm tra (08/2026), cùng quy tắc giao thời gian như tháng gốc.
-4. **Người đã chuyển khối khác nhưng còn thẻ hợp lệ không tính là dừng** (vì vẫn tham gia BHYT).
-
-Nếu nhóm hiểu khác ở điểm nào, đổi điều kiện tương ứng trong `solve.py` rồi so lại số liệu giữa các bạn.
-
----
-
-## 9. Lỗi thường gặp
-
-| Hiện tượng | Cách xử lý |
-|---|---|
-| `python` không nhận | Thử `py`; hoặc cài lại Python và tick Add to PATH. |
-| Không kích hoạt được `.venv` trên PowerShell | `Set-ExecutionPolicy -Scope Process Bypass` rồi kích hoạt lại. |
-| Cài `pyarrow` lỗi hoặc lỗi đọc/ghi Parquet | Chạy `gen_data.py` với `--format csv`. |
-| Hết RAM | Giảm `--chunk`, ví dụ `--chunk 100000`. |
-| Bị ngắt khi sinh dữ liệu | Chạy lại lệnh cũ kèm `--resume`. |
-| `solve.py` báo không thấy dữ liệu | Chạy `gen_data.py` trước, hoặc chỉ đúng thư mục bằng `--data`. |
-| `ModuleNotFoundError: No module named 'duckdb'` | Chưa kích hoạt `.venv` hoặc chưa cài: `pip install duckdb`. |
-| DuckDB báo không thấy file | Đang chạy ngoài thư mục gốc project hoặc sai đường dẫn `data/ST_INTHE_DTL/*.parquet`. |
-| DuckDB báo hết bộ nhớ | Giảm `memory_limit` / `threads` trong `query.py`, hoặc thử trên một part. |
-| `verify.py` báo `[LỖI]` | Chạy lại `solve.py`, kiểm tra hai lệnh dùng cùng `--goc`, `--kiem-tra` và cùng thư mục dữ liệu. |
+- [Phân tích nghiệp vụ và luồng dữ liệu — Ý 2](Tuan%202/Ý%202%20–%20Phân%20tích%20nghiệp%20vụ%20%26%20luồng%20dữ%20liệu%20(Tuần%202,%20Task%201).md)
+- [Thuật toán gián đoạn và bộ test case — Ý 2](Tuan%202/Ý%202%20–%20Thuật%20toán%20gián%20đoạn%20%26%20bộ%20test%20case%20(Tuần%202,%20Task%202).md)
